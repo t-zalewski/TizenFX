@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
+using Tizen.Internals.Errors;
 using Tizen.WsShell;
 
 internal static partial class Interop
@@ -15,13 +14,11 @@ internal static partial class Interop
             Hidden,
         }
 
-        public enum QuickpanelOrientation : int
+        public enum QuickPanelScrollability : int
         {
-            OrientationUnknown,
-            Orientation0,
-            Orientation90,
-            Orientation180,
-            Orientation270,
+            Unknown,
+            Set,
+            Unset,
         }
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_create")]
@@ -37,16 +34,16 @@ internal static partial class Interop
         internal static extern int Hide(IntPtr quickpanel);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_visible_get")]
-        internal static extern int VisibleGet(IntPtr quickpanel, out Int32 visible);
+        internal static extern int VisibleGet(IntPtr quickpanel, out QuickpanelVisibility visible);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_scrollable_set")]
         internal static extern int ScrollableSet(IntPtr quickpanel, bool scrollable);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_scrollable_get")]
-        internal static extern int ScrollableGet(IntPtr quickpanel, out Int32 scrollable);
+        internal static extern int ScrollableGet(IntPtr quickpanel, out QuickPanelScrollability scrollable);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_orientation_get")]
-        internal static extern int OrientationGet(IntPtr quickpanel, out Int32 orientation);
+        internal static extern int OrientationGet(IntPtr quickpanel, out QuickpanelOrientation orientation);
 
         //typedef void(* tzsh_quickpanel_event_cb)(int type, tzsh_quickpanel_event_info_h event_info, void *user_data)
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -62,7 +59,7 @@ internal static partial class Interop
 
         //int tzsh_quickpanel_event_visible_get (tzsh_quickpanel_event_info_h event_info, tzsh_quickpanel_state_visible_e *visible);
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_event_visible_get")]
-        internal static extern int EventInfoGetVisible(IntPtr eventInfo, out QuickpanelVisibility visible);
+        internal static extern int EventInfoGetVisibility(IntPtr eventInfo, out QuickpanelVisibility visible);
 
         //int tzsh_quickpanel_event_orientation_get (tzsh_quickpanel_event_info_h event_info, tzsh_quickpanel_state_orientation_e *orientation);
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_event_orientation_get")]
