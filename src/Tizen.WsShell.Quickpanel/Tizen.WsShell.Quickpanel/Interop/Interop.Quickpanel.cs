@@ -9,7 +9,7 @@ internal static partial class Interop
     internal static partial class Quickpanel
     {
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_create")]
-        internal static extern IntPtr Create(IntPtr tzsh, IntPtr win);
+        internal static extern IntPtr Create(IntPtr tzsh, Int32 win);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_destroy")]
         internal static extern int Destroy(IntPtr quickpanel);
@@ -21,16 +21,16 @@ internal static partial class Interop
         internal static extern int Hide(IntPtr quickpanel);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_visible_get")]
-        internal static extern int VisibleGet(IntPtr quickpanel, out Int32 visibleState);
+        internal static extern int VisibleGet(IntPtr quickpanel, out Int32 visible);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_scrollable_set")]
         internal static extern int ScrollableSet(IntPtr quickpanel, bool scrollable);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_scrollable_get")]
-        internal static extern int ScrollableGet(IntPtr quickpanel, out IntPtr scrollable);
+        internal static extern int ScrollableGet(IntPtr quickpanel, out Int32 scrollable);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_orientation_get")]
-        internal static extern int OrientationGet(IntPtr quickpanel, out IntPtr orientation);
+        internal static extern int OrientationGet(IntPtr quickpanel, out Int32 orientation);
 
 
         //TODO: EVENTS

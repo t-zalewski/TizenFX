@@ -20,5 +20,10 @@
     </PackageReference>
     <PackageReference Include="Tizen.NET.Sdk" Version="1.0.1" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ElmSharp\ElmSharp.csproj" />
+    <ProjectReference Include="..\..\Tizen.Log\Tizen.Log.csproj" />
+    <ProjectReference Include="..\..\Tizen\Tizen.csproj" />
+  </ItemGroup>
 
 </Project>
