@@ -23,37 +23,37 @@ internal static partial class Interop
         public const string logTag = "Tizen.WsShell";
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_create")]
-        internal static extern IntPtr Create(IntPtr tzsh, Int32 win);
+        internal static extern SafeQuickpanelHandle Create(SafeShellHandle tzsh, Int32 win);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_destroy")]
         internal static extern int Destroy(IntPtr quickpanel);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_show")]
-        internal static extern int Show(IntPtr quickpanel);
+        internal static extern int Show(SafeQuickpanelHandle quickpanel);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_hide")]
-        internal static extern int Hide(IntPtr quickpanel);
+        internal static extern int Hide(SafeQuickpanelHandle quickpanel);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_visible_get")]
-        internal static extern int VisibleGet(IntPtr quickpanel, out QuickpanelVisibility visible);
+        internal static extern int VisibleGet(SafeQuickpanelHandle quickpanel, out QuickpanelVisibility visible);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_scrollable_set")]
-        internal static extern int ScrollableSet(IntPtr quickpanel, bool scrollable);
+        internal static extern int ScrollableSet(SafeQuickpanelHandle quickpanel, bool scrollable);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_scrollable_get")]
-        internal static extern int ScrollableGet(IntPtr quickpanel, out QuickPanelScrollability scrollable);
+        internal static extern int ScrollableGet(SafeQuickpanelHandle quickpanel, out QuickPanelScrollability scrollable);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_orientation_get")]
-        internal static extern int OrientationGet(IntPtr quickpanel, out QuickpanelOrientation orientation);
+        internal static extern int OrientationGet(SafeQuickpanelHandle quickpanel, out QuickpanelOrientation orientation);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate bool QuickpanelCallback(Int32 type, IntPtr eventInfo, IntPtr data);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_event_handler_add")]
-        internal static extern IntPtr AddEventHandler(IntPtr quickpanel, Int32 type, QuickpanelCallback func, IntPtr user_data);
+        internal static extern IntPtr AddEventHandler(SafeQuickpanelHandle quickpanel, Int32 type, QuickpanelCallback func, IntPtr user_data);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_event_handler_del")]
-        internal static extern int DeleteEventHandler(IntPtr quickpanel, IntPtr eventHandler);
+        internal static extern int DeleteEventHandler(SafeQuickpanelHandle quickpanel, IntPtr eventHandler);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_event_visible_get")]
         internal static extern int EventInfoGetVisibility(IntPtr eventInfo, out QuickpanelVisibility visible);

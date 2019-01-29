@@ -19,11 +19,13 @@ namespace Tizen.WindowManager.Shell
     /// <summary>
     /// An extended EventArgs class contains the Orientation state
     /// </summary>
+    /// <since_tizen> 6 </since_tizen>
     public class OrientationEventArgs : EventArgs
     {
         /// <summary>
         /// Current Quickpanel orientation state
         /// </summary>
+        /// <since_tizen> 6 </since_tizen>
         public QuickpanelOrientation Orientation { get; }
 
         internal OrientationEventArgs(QuickpanelOrientation orientation)
@@ -35,11 +37,13 @@ namespace Tizen.WindowManager.Shell
     /// <summary>
     /// An extended EventArgs class contains the Visibility state
     /// </summary>
+    /// <since_tizen> 6 </since_tizen>
     public class VisibilityEventArgs : EventArgs
     {
         /// <summary>
         /// Indicates whether Quickpanel is currently visible or not
         /// </summary>
+        /// <since_tizen> 6 </since_tizen>
         public bool IsVisible { get; }
 
         internal VisibilityEventArgs(bool visibility)

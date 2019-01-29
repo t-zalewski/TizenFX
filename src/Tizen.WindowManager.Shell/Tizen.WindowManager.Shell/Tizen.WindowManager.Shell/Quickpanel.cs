@@ -20,12 +20,13 @@ namespace Tizen.WindowManager.Shell
     /// <summary>
     /// Class used to control the Quickpanel
     /// </summary>
+    /// <since_tizen> 6 </since_tizen>
     public class Quickpanel : IDisposable
     {
         private const int TOOLKIT_TYPE_EFL = 1;
 
-        private IntPtr _shellHandler;
-        private IntPtr _qpHandler;
+        private SafeShellHandle _shellHandler;
+        private SafeQuickpanelHandle _qpHandler;
         private IntPtr _orientationEventHandler;
         private IntPtr _visibilityEventHandler;
 
@@ -38,10 +39,13 @@ namespace Tizen.WindowManager.Shell
         private QuickpanelCallback _orientationChangedCallback;
         private QuickpanelCallback _visibilityChangedCallback;
 
+        private bool _isDisposed;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Quickpanel"/> class.
         /// </summary>
         /// <param name="parent">The EvasObject </param>
+        /// <since_tizen> 6 </since_tizen>
         public Quickpanel(IntPtr parent)
         {
             _shellHandler = Interop.WindowManagerShell.Create(TOOLKIT_TYPE_EFL);
@@ -71,16 +75,16 @@ namespace Tizen.WindowManager.Shell
         /// <summary>
         /// Destroy the Quickpanel object
         /// </summary>
+        /// <since_tizen> 6 </since_tizen>
         ~Quickpanel()
         {
             Dispose(false);
         }
 
-
-
         /// <summary>
         /// Event raised when orientation of the Quickpanel changed
         /// </summary>
+        /// <since_tizen> 6 </since_tizen>
         public event EventHandler<OrientationEventArgs> OrientationChanged
         {
             add
@@ -106,6 +110,7 @@ namespace Tizen.WindowManager.Shell
         /// <summary>
         /// Event fired up when visibility state of the Quickpanel changed
         /// </summary>
+        /// <since_tizen> 6 </since_tizen>
         public event EventHandler<VisibilityEventArgs> VisibilityChanged
         {
             add
@@ -131,6 +136,7 @@ namespace Tizen.WindowManager.Shell
         /// <summary>
         /// Gets or sets a value indicating whether Quickpanel is Scrollable or not
         /// </summary>
+        /// <since_tizen> 6 </since_tizen>
         public bool IsScrollable
         {
             get
@@ -157,6 +163,7 @@ namespace Tizen.WindowManager.Shell
         /// <summary>
         /// Gets or sets a value indicating whether Quickpanel is Visible or not
         /// </summary>
+        /// <since_tizen> 6 </since_tizen>
         public bool IsVisible
         {
             get
@@ -174,6 +181,7 @@ namespace Tizen.WindowManager.Shell
         /// <summary>
         /// Gets orientation of the Quickpanel
         /// </summary>
+        /// <since_tizen> 6 </since_tizen>
         public QuickpanelOrientation Orientation
         {
             get
@@ -191,6 +199,7 @@ namespace Tizen.WindowManager.Shell
         /// <summary>
         /// Shows Quickpanel on the screen
         /// </summary>
+        /// <since_tizen> 6 </since_tizen>
         public void Show()
         {
             var ret = Interop.Quickpanel.Show(_qpHandler);
@@ -203,12 +212,47 @@ namespace Tizen.WindowManager.Shell
         /// <summary>
         /// Hide Quickpanel from the screen
         /// </summary>
+        /// <since_tizen> 6 </since_tizen>
         public void Hide()
         {
             var ret = Interop.Quickpanel.Hide(_qpHandler);
             if (ret != (int)QuickpanelError.None)
             {
                 throw QuickpanelErrorFactory.CheckAndThrowException(ret, "Unable to hide Quickpanel");
+            }
+        }
+
+        /// <summary>
+        /// Releases any unmanaged resources used by this object.
+        /// </summary>
+        /// <since_tizen> 6 </since_tizen>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Releases any unmanaged resources used by this object. Can also dispose any other disposable objects.
+        /// </summary>
+        /// <since_tizen> 6 </since_tizen>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_isDisposed)
+            {
+                if (disposing)
+                {
+                    UnregisterOrientationChangedEvent();
+                    UnregisterVisibilityChangedEvent();
+
+                    if (_qpHandler != null && !_qpHandler.IsInvalid)
+                        _qpHandler.Dispose();
+
+                    if (_shellHandler != null && !_shellHandler.IsInvalid)
+                        _shellHandler.Dispose();
+                }
+
+                _isDisposed = true;
             }
         }
 
@@ -277,26 +321,12 @@ namespace Tizen.WindowManager.Shell
                 }
             }
         }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool v)
-        {
-            var ret = Interop.Quickpanel.Destroy(_qpHandler);
-            if (ret != (int)QuickpanelError.None)
-            {
-                Tizen.Log.Error(logTag, $"Failed to destroy object: {Internals.Errors.ErrorFacts.GetErrorMessage(ret)}");
-            }
-        }
     }
 
     /// <summary>
     /// Enumeration for Quickpanel orientation
     /// </summary>
+    /// <since_tizen> 6 </since_tizen>
     public enum QuickpanelOrientation : int
     {
         /// <summary>
