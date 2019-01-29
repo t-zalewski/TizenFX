@@ -14,13 +14,14 @@
 
 using System;
 using System.Runtime.InteropServices;
+using Tizen.WindowManager.Shell;
 
 internal static partial class Interop
 {
     internal static partial class WindowManagerShell
     {
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_create")]
-        internal static extern IntPtr Create(Int32 type);
+        internal static extern SafeShellHandle Create(Int32 type);
 
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_destroy")]
         internal static extern int Destroy(IntPtr tzsh);
