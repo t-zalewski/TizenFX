@@ -15,14 +15,13 @@
 using System;
 using static Interop.Quickpanel;
 
-namespace Tizen.WsShell
+namespace Tizen.WindowManager.Shell
 {
     /// <summary>
     /// Class used to control the Quickpanel
     /// </summary>
-    public class Quickpanel
+    public class Quickpanel : IDisposable
     {
-        private const string logTag = "Tizen.WsShell";
         private const int TOOLKIT_TYPE_EFL = 1;
 
         private IntPtr _shellHandler;
@@ -43,9 +42,9 @@ namespace Tizen.WsShell
         /// Initializes a new instance of the <see cref="Quickpanel"/> class.
         /// </summary>
         /// <param name="parent">The EvasObject </param>
-        public Quickpanel(ElmSharp.EvasObject parent)
+        public Quickpanel(IntPtr parent)
         {
-            _shellHandler = Interop.WsShell.Create(TOOLKIT_TYPE_EFL);
+            _shellHandler = Interop.WindowManagerShell.Create(TOOLKIT_TYPE_EFL);
 
             if (_shellHandler == null)
             {
@@ -56,7 +55,7 @@ namespace Tizen.WsShell
                 }
             }
 
-            var windowId = Interop.WsShell.GetElmWindowId(parent);
+            var windowId = Interop.WindowManagerShell.GetElmWindowId(parent);
             _qpHandler = Interop.Quickpanel.Create(_shellHandler, windowId);
 
             if (_qpHandler == null)
@@ -74,12 +73,10 @@ namespace Tizen.WsShell
         /// </summary>
         ~Quickpanel()
         {
-            var ret = Interop.Quickpanel.Destroy(_qpHandler);
-            if (ret != (int)QuickpanelError.None)
-            {
-                Tizen.Log.Error(logTag, $"Failed to destroy object: {Internals.Errors.ErrorFacts.GetErrorMessage(ret)}");
-            }
+            Dispose(false);
         }
+
+
 
         /// <summary>
         /// Event raised when orientation of the Quickpanel changed
@@ -281,6 +278,20 @@ namespace Tizen.WsShell
             }
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool v)
+        {
+            var ret = Interop.Quickpanel.Destroy(_qpHandler);
+            if (ret != (int)QuickpanelError.None)
+            {
+                Tizen.Log.Error(logTag, $"Failed to destroy object: {Internals.Errors.ErrorFacts.GetErrorMessage(ret)}");
+            }
+        }
     }
 
     /// <summary>

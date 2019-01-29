@@ -14,7 +14,7 @@
 
 using System;
 
-namespace Tizen.WsShell
+namespace Tizen.WindowManager.Shell
 {
     /// <summary>
     /// An extended EventArgs class contains the Orientation state

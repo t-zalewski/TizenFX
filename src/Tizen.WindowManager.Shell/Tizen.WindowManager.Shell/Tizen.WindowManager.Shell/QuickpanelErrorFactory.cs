@@ -15,7 +15,7 @@
 using System;
 using Tizen.Internals.Errors;
 
-namespace Tizen.WsShell
+namespace Tizen.WindowManager.Shell
 {
     internal enum QuickpanelError
     {

@@ -17,12 +17,12 @@ using System.Runtime.InteropServices;
 
 internal static partial class Interop
 {
-    internal static partial class WsShell
+    internal static partial class WindowManagerShell
     {
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_create")]
         internal static extern IntPtr Create(Int32 type);
 
-        [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_create")]
+        [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_destroy")]
         internal static extern int Destroy(IntPtr tzsh);
 
         [DllImport(Libraries.Elementary, EntryPoint = "elm_win_window_id_get")]

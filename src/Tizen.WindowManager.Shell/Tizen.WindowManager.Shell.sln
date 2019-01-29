@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tizen.WsShell.Quickpanel", "Tizen.WsShell.Quickpanel\Tizen.WsShell.Quickpanel.csproj", "{D90C25D6-C639-46C6-A154-8406522CEB5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tizen.WindowManager.Shell", "Tizen.WindowManager.Shell\Tizen.WindowManager.Shell.csproj", "{D90C25D6-C639-46C6-A154-8406522CEB5B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tizen", "..\Tizen\Tizen.csproj", "{8A9FFF3D-C3E9-46E7-B328-36BCD85024E3}"
 EndProject

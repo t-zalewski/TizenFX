@@ -14,12 +14,14 @@
 
 using System;
 using System.Runtime.InteropServices;
-using Tizen.WsShell;
+using Tizen.WindowManager.Shell;
 
 internal static partial class Interop
 {
     internal static partial class Quickpanel
     {
+        public const string logTag = "Tizen.WsShell";
+
         [DllImport(Libraries.Quickpanel, EntryPoint = "tzsh_quickpanel_create")]
         internal static extern IntPtr Create(IntPtr tzsh, Int32 win);
 
