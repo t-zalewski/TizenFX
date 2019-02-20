@@ -24,6 +24,7 @@ namespace Tizen.WindowManager
     public class Quickpanel : IDisposable
     {
         private SafeQuickpanelHandle _qpHandler;
+        private Shell _shell;
         private IntPtr _orientationEventHandler;
         private IntPtr _visibilityEventHandler;
 
@@ -45,7 +46,8 @@ namespace Tizen.WindowManager
         /// <since_tizen> 6 </since_tizen>
         public Quickpanel(Shell shell)
         {
-            _qpHandler = Interop.Quickpanel.Create(shell.shellHandler, shell.windowId);
+            _shell = shell;
+            _qpHandler = Interop.Quickpanel.Create(_shell.shellHandler, _shell.windowId);
 
             if (_qpHandler == null)
             {
@@ -303,12 +305,6 @@ namespace Tizen.WindowManager
                 }
             }
         }
-
-        //public void ReleaseShell()
-        //{
-        //    if (_shellHandler != null && !_shellHandler.IsInvalid)
-        //        _shellHandler.Dispose();
-        //}
     }
 
     /// <summary>

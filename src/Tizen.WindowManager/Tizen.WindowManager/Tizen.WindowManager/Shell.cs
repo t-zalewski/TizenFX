@@ -12,7 +12,7 @@ namespace Tizen.WindowManager
     }
 
     /// <summary>
-    /// Class 
+    /// Shell class
     /// </summary>
     /// <since_tizen> 6 </since_tizen>
     public class Shell : IDisposable
